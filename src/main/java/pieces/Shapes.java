@@ -6,11 +6,13 @@ import java.awt.*;
 
 public enum Shapes {
     MIRROR_L(Color.GREEN, 3){
-        @Override public void fall(Tablero tablero, int columnaActual, int i){
-            tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
-            tablero.tableroLabels[columnaActual][i+1].setFilled(true).label.setBackground(getColor());
-            tablero.tableroLabels[columnaActual][i+2].setFilled(true).label.setBackground(getColor());
-            tablero.tableroLabels[columnaActual-1][i+2].setFilled(true).label.setBackground(getColor());
+        @Override public void fall(Tablero tablero, int actualColumn, int i){
+            tablero.tableroLabels[actualColumn][i].setFilled(true).label.setBackground(getColor());
+            tablero.tableroLabels[actualColumn][i+1].setFilled(true).label.setBackground(getColor());
+            tablero.tableroLabels[actualColumn][i+2].setFilled(true).label.setBackground(getColor());
+            tablero.tableroLabels[actualColumn-1][i+2].setFilled(true).label.setBackground(getColor());
+
+
         }
         @Override public void clear(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(false).label.setBackground(Color.DARK_GRAY);
@@ -18,8 +20,13 @@ public enum Shapes {
             tablero.tableroLabels[columnaActual][i+2].setFilled(false).label.setBackground(Color.DARK_GRAY);
             tablero.tableroLabels[columnaActual-1][i+2].setFilled(false).label.setBackground(Color.DARK_GRAY);
         }
-        @Override public boolean contact(Tablero tablero, int columnaActual, int i){
-            return tablero.tableroLabels[columnaActual-1][i+3].isFilled() || tablero.tableroLabels[columnaActual][i+3].isFilled();
+        @Override public boolean contact(Tablero tablero, int columnaActual, int heigthToBottom){
+
+            boolean bottomOneIsFilled = tablero.tableroLabels[columnaActual-1][heigthToBottom+3].isFilled();
+            boolean bottomTwoIsFilled = tablero.tableroLabels[columnaActual][heigthToBottom+3].isFilled();
+
+            return tablero.tableroLabels[columnaActual-1][heigthToBottom+3].isFilled() ||
+                    tablero.tableroLabels[columnaActual][heigthToBottom+3].isFilled();
         }
     },
     MIRROR_Z(Color.CYAN, 2){
