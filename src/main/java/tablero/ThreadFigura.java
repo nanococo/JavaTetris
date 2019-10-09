@@ -39,20 +39,20 @@ public class ThreadFigura extends Thread {
             Shapes shape = Shapes.SQUARE;
             tablero.setShapes(shape);
             // iteración de figura
-            for (int i = -3; i < Tablero.FILAS_Y; i++) {
+            for (int index = -3; index < Tablero.FILAS_Y; index++) {
                 int columnaActual = tablero.getIndex_x();
 
-                if (i >= 0) {
+                if (index >= 0) {
 
                     if(moveLeft){
                         decrementIndex_x(columnaActual, shape);
                         moveLeft = false;
                     } else if (moveRight){
-                        incrementIndex_x(columnaActual, shape, Tablero.COLUMNAS_X);
+                        incrementIndex_x(columnaActual, shape, Tablero.COLUMNAS_X, index);
                         moveRight = false;
                     } else {
                         try {
-                            shape.fall(tablero, columnaActual, i);
+                            shape.fall(tablero, columnaActual, index);
                         } catch (IndexOutOfBoundsException ignore){}
                     }
 
@@ -64,12 +64,12 @@ public class ThreadFigura extends Thread {
 
                     // verificar si chocó con algo
 
-                    if(i+shape.getyExtension()==Tablero.FILAS_Y || shape.contact(tablero, columnaActual, i)){
+                    if(index+shape.getyExtension()==Tablero.FILAS_Y || shape.contact(tablero, columnaActual, index)){
                         tablero.setIndex_x(5);
                         tablero.checkBottom();
                         break;
                     }else {
-                        shape.clear(tablero, columnaActual, i);
+                        shape.clear(tablero, columnaActual, index);
                     }
 
 
@@ -118,17 +118,17 @@ public class ThreadFigura extends Thread {
             this.factorVelocidad -= 0.10;
     }
 
-    private void decrementIndex_x(int index_x, Shapes shapes){
-        if (index_x-shapes.getxLeft() > 0 )
-            --index_x;
+    private void decrementIndex_x(int currentColumn, Shapes shapes){
+        if (currentColumn-shapes.getxLeft() > 0)
+            tablero.setIndex_x(tablero.getIndex_x()-1);
 
     }
-    private void incrementIndex_x(int index_x, Shapes shapes, int COLUMNAS_X){
-        if (index_x+shapes.getxRight() < (COLUMNAS_X-1))
-            ++index_x;
+    private void incrementIndex_x(int currentColumn, Shapes shapes, int COLUMNAS_X, int index){
+        if (currentColumn+shapes.getxRight() < (COLUMNAS_X-1) && !(shapes.rightContact(currentColumn, index, tablero)))
+            tablero.setIndex_x(tablero.getIndex_x()+1);
     }
     
-    
+
     
     
 }

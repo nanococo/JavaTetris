@@ -152,6 +152,11 @@ public enum Shapes {
         return xRight;
     }
 
+    public boolean rightContact(int column, int index, Tablero tablero){
+        return tablero.tableroLabels[column + 1][index].isFilled();
+    }
+
+
     public void fall(Tablero tablero, int columnaActual, int i){}
     public void clear(Tablero tablero, int columnaActual, int i){}
     public boolean contact(Tablero tablero, int columnaActual, int i){return false;}
