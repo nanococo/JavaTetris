@@ -23,6 +23,8 @@ public class ThreadFigura extends Thread {
     private boolean paused = false;
     private double factorVelocidad = 1.0;
     private int milisegundosDefault = 2000;
+    private boolean moveRight = false;
+    private boolean moveLeft = false;
 
     ThreadFigura(Tablero tablero) {
         this.tablero = tablero;
@@ -41,9 +43,18 @@ public class ThreadFigura extends Thread {
                 int columnaActual = tablero.getIndex_x();
 
                 if (i >= 0) {
-                    try {
-                        shape.fall(tablero, columnaActual, i);
-                    } catch (IndexOutOfBoundsException ignore){}
+
+                    if(moveLeft){
+                        decrementIndex_x(columnaActual, shape);
+                        moveLeft = false;
+                    } else if (moveRight){
+                        incrementIndex_x(columnaActual, shape, Tablero.COLUMNAS_X);
+                        moveRight = false;
+                    } else {
+                        try {
+                            shape.fall(tablero, columnaActual, i);
+                        } catch (IndexOutOfBoundsException ignore){}
+                    }
 
                     try {
                         sleep((long) (factorVelocidad * milisegundosDefault));
@@ -81,6 +92,22 @@ public class ThreadFigura extends Thread {
         return running;
     }
 
+    public boolean isMoveRight() {
+        return moveRight;
+    }
+
+    public void setMoveRight(boolean moveRight) {
+        this.moveRight = moveRight;
+    }
+
+    public boolean isMoveLeft() {
+        return moveLeft;
+    }
+
+    public void setMoveLeft(boolean moveLeft) {
+        this.moveLeft = moveLeft;
+    }
+
     public void setRunning(boolean running) {
         this.running = running;
     }
@@ -90,7 +117,16 @@ public class ThreadFigura extends Thread {
         if (factorVelocidad > 0.30)
             this.factorVelocidad -= 0.10;
     }
-    
+
+    private void decrementIndex_x(int index_x, Shapes shapes){
+        if (index_x-shapes.getxLeft() > 0 )
+            --index_x;
+
+    }
+    private void incrementIndex_x(int index_x, Shapes shapes, int COLUMNAS_X){
+        if (index_x+shapes.getxRight() < (COLUMNAS_X-1))
+            ++index_x;
+    }
     
     
     
