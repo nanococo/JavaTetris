@@ -13,7 +13,7 @@ import java.awt.*;
 public class Tablero extends javax.swing.JFrame {
 
     // cambiar este valor para dimensiones
-    private static int COLUMNAS_X = 10;
+    static int COLUMNAS_X = 10;
     static int FILAS_Y = 20;
     private static int DIMENSION = 30;
     
@@ -51,12 +51,11 @@ public class Tablero extends javax.swing.JFrame {
         return this.index_x;
     }    
     private void decrementIndex_x(){
-        if (index_x-shapes.getxLeft() > 0)
-            --index_x;
+        threadFigura.setMoveLeft(true);
+
     }
     private void incrementIndex_x(){
-        if (index_x+shapes.getxRight() < (COLUMNAS_X-1))
-            ++index_x;
+        threadFigura.setMoveRight(true);
     }
 
     void setIndex_x(int index_x) {
