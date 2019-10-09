@@ -34,6 +34,7 @@ public class ThreadFigura extends Thread {
         while (isRunning()) {
             int pick = new Random().nextInt(Shapes.values().length);
             Shapes shape = Shapes.values()[pick];
+            tablero.setShapes(shape);
             // iteración de figura
             for (int i = -3; i < Tablero.FILAS_Y; i++) {
                 int columnaActual = tablero.getIndex_x();
