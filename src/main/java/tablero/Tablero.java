@@ -6,12 +6,14 @@
 package tablero;
 
 
+import pieces.Shapes;
+
 public class Tablero extends javax.swing.JFrame {
 
     // cambiar este valor para dimensiones
-    public static int COLUMNAS_X = 10;
-    public static int FILAS_Y = 20;
-    public static int DIMENSION = 30;
+    private static int COLUMNAS_X = 10;
+    static int FILAS_Y = 20;
+    private static int DIMENSION = 30;
     
     //la columna posucionado
     private int index_x = 5;
@@ -19,15 +21,15 @@ public class Tablero extends javax.swing.JFrame {
     // Tablero con objetos JButton
     public MyJLabel[][] tableroLabels = new MyJLabel[COLUMNAS_X][FILAS_Y];
     private ThreadFigura threadFigura;
+    private Shapes shapes;
     
-    public Tablero() {
+    Tablero() {
         initComponents();
         generarTablero();
         threadFigura = new ThreadFigura(this);
-    
     }
     
-    public void generarTablero(){
+    private void generarTablero(){
     for(int i=0;i<COLUMNAS_X;i++)
         for(int j=0;j<FILAS_Y;j++)
         {
@@ -46,19 +48,21 @@ public class Tablero extends javax.swing.JFrame {
     public int getIndex_x (){
         return this.index_x;
     }    
-    public int decrementIndex_x(){
-        if (index_x > 0)
+    public void decrementIndex_x(){
+        if (index_x-shapes.getxLeft() > 0)
             --index_x;
-        return index_x;
     }
-    public int incrementIndex_x(){
-        if (index_x < (COLUMNAS_X-1))
+    public void incrementIndex_x(){
+        if (index_x+shapes.getxRight() < (COLUMNAS_X-1))
             ++index_x;
-        return index_x;
     }
 
     public void setIndex_x(int index_x) {
         this.index_x = index_x;
+    }
+
+    public void setShapes(Shapes shapes) {
+        this.shapes = shapes;
     }
 
     /**

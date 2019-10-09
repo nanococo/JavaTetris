@@ -5,7 +5,7 @@ import tablero.Tablero;
 import java.awt.*;
 
 public enum Shapes {
-    MIRROR_L(Color.GREEN, 3){
+    MIRROR_L(Color.GREEN, 3, 1, 0){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual][i+1].setFilled(true).label.setBackground(getColor());
@@ -22,7 +22,7 @@ public enum Shapes {
             return tablero.tableroLabels[columnaActual-1][i+3].isFilled() || tablero.tableroLabels[columnaActual][i+3].isFilled();
         }
     },
-    MIRROR_Z(Color.CYAN, 2){
+    MIRROR_Z(Color.CYAN, 2, 1, 1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual+1][i].setFilled(true).label.setBackground(getColor());
@@ -39,7 +39,7 @@ public enum Shapes {
             return tablero.tableroLabels[columnaActual-1][i+2].isFilled() || tablero.tableroLabels[columnaActual][i+2].isFilled();
         }
     },
-    SQUARE(Color.MAGENTA,2){
+    SQUARE(Color.MAGENTA,2, 0, 1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual+1][i].setFilled(true).label.setBackground(getColor());
@@ -56,7 +56,7 @@ public enum Shapes {
             return tablero.tableroLabels[columnaActual+1][i+2].isFilled() || tablero.tableroLabels[columnaActual][i+2].isFilled();
         }
     },
-    LINE(Color.BLUE,4){
+    LINE(Color.BLUE,4,0,0){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual][i+1].setFilled(true).label.setBackground(getColor());
@@ -73,7 +73,7 @@ public enum Shapes {
             return tablero.tableroLabels[columnaActual-1][i+4].isFilled();
         }
     },
-    T(Color.RED,2){
+    T(Color.RED,2,1,1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual+1][i].setFilled(true).label.setBackground(getColor());
@@ -90,7 +90,7 @@ public enum Shapes {
             return tablero.tableroLabels[columnaActual][i+2].isFilled();
         }
     },
-    L(Color.YELLOW,3){
+    L(Color.YELLOW,3,0,1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual][i+1].setFilled(true).label.setBackground(getColor());
@@ -107,7 +107,7 @@ public enum Shapes {
             return tablero.tableroLabels[columnaActual+1][i+3].isFilled() || tablero.tableroLabels[columnaActual][i+3].isFilled();
         }
     },
-    Z(Color.WHITE,2){
+    Z(Color.WHITE,2,1,1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
             tablero.tableroLabels[columnaActual][i].setFilled(true).label.setBackground(getColor());
             tablero.tableroLabels[columnaActual-1][i].setFilled(true).label.setBackground(getColor());
@@ -127,10 +127,15 @@ public enum Shapes {
 
     private Color color;
     private int yExtension;
+    private int xLeft;
+    private int xRight;
 
-    Shapes(Color color, int yExtension){
+
+    Shapes(Color color, int yExtension, int xLeft, int xRight){
         this.color = color;
         this.yExtension = yExtension;
+        this.xLeft = xLeft;
+        this.xRight = xRight;
     }
 
     public Color getColor() {
@@ -139,6 +144,12 @@ public enum Shapes {
 
     public int getyExtension() {
         return yExtension;
+    }
+    public int getxLeft() {
+        return xLeft;
+    }
+    public int getxRight() {
+        return xRight;
     }
 
     public void fall(Tablero tablero, int columnaActual, int i){}
