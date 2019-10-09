@@ -35,8 +35,8 @@ public class ThreadFigura extends Thread {
     public void run() {
         while (isRunning()) {
             int pick = new Random().nextInt(Shapes.values().length);
-            //Shapes shape = Shapes.values()[pick];
-            Shapes shape = Shapes.SQUARE;
+            Shapes shape = Shapes.values()[pick];
+            //Shapes shape = Shapes.SQUARE;
             tablero.setShapes(shape);
             // iteración de figura
             for (int index = -3; index < Tablero.FILAS_Y; index++) {
@@ -50,11 +50,12 @@ public class ThreadFigura extends Thread {
                     } else if (moveRight){
                         incrementIndex_x(columnaActual, shape, Tablero.COLUMNAS_X, index);
                         moveRight = false;
-                    } else {
-                        try {
-                            shape.fall(tablero, columnaActual, index);
-                        } catch (IndexOutOfBoundsException ignore){}
                     }
+
+                    try {
+                        shape.fall(tablero, columnaActual, index);
+                    } catch (IndexOutOfBoundsException ignore){}
+
 
                     try {
                         sleep((long) (factorVelocidad * milisegundosDefault));
