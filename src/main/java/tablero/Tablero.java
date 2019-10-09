@@ -8,6 +8,8 @@ package tablero;
 
 import pieces.Shapes;
 
+import java.awt.*;
+
 public class Tablero extends javax.swing.JFrame {
 
     // cambiar este valor para dimensiones
@@ -35,7 +37,7 @@ public class Tablero extends javax.swing.JFrame {
         {
                 // coloca imagen a todos vacio
                 tableroLabels[i][j] = new MyJLabel();
-                
+
 
                 panelTablero.add(tableroLabels[i][j].label);
                 // coloca dimensiones y localidad
@@ -45,25 +47,64 @@ public class Tablero extends javax.swing.JFrame {
         }
     }
     
-    public int getIndex_x (){
+    int getIndex_x(){
         return this.index_x;
     }    
-    public void decrementIndex_x(){
+    private void decrementIndex_x(){
         if (index_x-shapes.getxLeft() > 0)
             --index_x;
     }
-    public void incrementIndex_x(){
+    private void incrementIndex_x(){
         if (index_x+shapes.getxRight() < (COLUMNAS_X-1))
             ++index_x;
     }
 
-    public void setIndex_x(int index_x) {
+    void setIndex_x(int index_x) {
         this.index_x = index_x;
     }
 
-    public void setShapes(Shapes shapes) {
+    void setShapes(Shapes shapes) {
         this.shapes = shapes;
     }
+
+    void checkBottom(){
+        int linesFilled = 0;
+        for (int i = FILAS_Y-1; i>0; i--){
+            boolean bottomFilled = false;
+            for(int j=0;j<COLUMNAS_X;j++){
+                bottomFilled = tableroLabels[j][i].isFilled();
+                if(!bottomFilled){
+                    break;
+                }
+            }
+
+            if (bottomFilled){
+                System.out.println("BOTTOM FILLED");
+                linesFilled++;
+            } else {
+                break;
+            }
+        }
+
+        if(linesFilled>0){
+            int displacement = linesFilled;
+            for (int i = FILAS_Y-1; i>0; i--){
+                for(int j=0;j<COLUMNAS_X;j++){
+                    if(linesFilled>0){
+                        tableroLabels[j][i].setFilled(false).label.setBackground(Color.DARK_GRAY);
+                    } else {
+                        tableroLabels[j][i+displacement].setFilled(true).label.setBackground(tableroLabels[j][i].label.getBackground());
+                        tableroLabels[j][i+displacement].setFilled(false).label.setBackground(Color.DARK_GRAY);
+                    }
+                }
+                if(linesFilled>0){
+                    linesFilled--;
+                }
+            }
+        }
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

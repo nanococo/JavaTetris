@@ -24,7 +24,7 @@ public class ThreadFigura extends Thread {
     private double factorVelocidad = 1.0;
     private int milisegundosDefault = 2000;
 
-    public ThreadFigura(Tablero tablero) {
+    ThreadFigura(Tablero tablero) {
         this.tablero = tablero;
         this.running = true;
     }
@@ -33,7 +33,8 @@ public class ThreadFigura extends Thread {
     public void run() {
         while (isRunning()) {
             int pick = new Random().nextInt(Shapes.values().length);
-            Shapes shape = Shapes.values()[pick];
+            //Shapes shape = Shapes.values()[pick];
+            Shapes shape = Shapes.SQUARE;
             tablero.setShapes(shape);
             // iteración de figura
             for (int i = -3; i < Tablero.FILAS_Y; i++) {
@@ -54,6 +55,7 @@ public class ThreadFigura extends Thread {
 
                     if(i+shape.getyExtension()==Tablero.FILAS_Y || shape.contact(tablero, columnaActual, i)){
                         tablero.setIndex_x(5);
+                        tablero.checkBottom();
                         break;
                     }else {
                         shape.clear(tablero, columnaActual, i);
