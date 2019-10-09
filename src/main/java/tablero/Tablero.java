@@ -224,5 +224,6 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JPanel panelTablero;
     // End of variables declaration//GEN-END:variables
 
-    
+    //kjdgsvflkjhsbv,jiklweu
+
 }
