@@ -22,7 +22,7 @@ public class ThreadFigura extends Thread {
     private boolean running;
     private boolean paused = false;
     private double factorVelocidad = 1.0;
-    private int milisegundosDefault = 2000;
+    private int milisegundosDefault = 1000;
     private boolean moveRight = false;
     private boolean moveLeft = false;
 
@@ -35,18 +35,20 @@ public class ThreadFigura extends Thread {
     public void run() {
         while (isRunning()) {
             int pick = new Random().nextInt(Shapes.values().length);
-            //Shapes shape = Shapes.values()[pick];
-            Shapes shape = Shapes.MIRROR_Z;
+            Shapes shape = Shapes.values()[pick];
+            //Shapes shape = Shapes.MIRROR_Z;
             tablero.setShapes(shape);
             // iteración de figura
             for (int index = -3; index < Tablero.FILAS_Y; index++) {
                 int columnaActual = tablero.getIndex_x();
 
                 if (index >= 0) {
-                    System.out.println("Columna:"+columnaActual+", index"+index);
+
 
                     if(moveLeft){
+
                         decrementIndex_x(columnaActual, shape, index);
+
                         moveLeft = false;
 
                     } else if (moveRight){
