@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class ThreadFigura extends Thread {
     private Tablero tablero;
     
-    
+      
     private boolean running;
     private boolean paused = false;
     private double factorVelocidad = 1.0;
