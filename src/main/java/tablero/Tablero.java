@@ -7,8 +7,9 @@ package tablero;
 
 
 import pieces.Shapes;
-
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Tablero extends javax.swing.JFrame {
 
@@ -22,13 +23,14 @@ public class Tablero extends javax.swing.JFrame {
     
     // Tablero con objetos JButton
     public MyJLabel[][] tableroLabels = new MyJLabel[COLUMNAS_X][FILAS_Y];
-    private ThreadFigura threadFigura;
+    public ThreadFigura threadFigura;
     private Shapes shapes;
     
     Tablero() {
         initComponents();
         generarTablero();
         threadFigura = new ThreadFigura(this);
+        this.addKeyListener(new MyKeyListener(this));
     }
     
     private void generarTablero(){
@@ -50,11 +52,11 @@ public class Tablero extends javax.swing.JFrame {
     int getIndex_x(){
         return this.index_x;
     }    
-    private void decrementIndex_x(){
+    public void decrementIndex_x(){
         threadFigura.setMoveLeft(true);
 
     }
-    private void incrementIndex_x(){
+    public void incrementIndex_x(){
         threadFigura.setMoveRight(true);
     }
 
@@ -214,6 +216,7 @@ public class Tablero extends javax.swing.JFrame {
 
     private void btnLEFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLEFTActionPerformed
         // TODO add your handling code here:
+
         decrementIndex_x();
     }//GEN-LAST:event_btnLEFTActionPerformed
 
@@ -226,6 +229,8 @@ public class Tablero extends javax.swing.JFrame {
         // TODO add your handling code here:
         threadFigura.decrementVelocidad();
     }//GEN-LAST:event_btnVelocidadActionPerformed
+
+
 
     /**
      * @param args the command line arguments

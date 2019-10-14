@@ -18,11 +18,11 @@ import java.util.logging.Logger;
 public class ThreadFigura extends Thread {
     private Tablero tablero;
     
-    
+      
     private boolean running;
     private boolean paused = false;
     private double factorVelocidad = 1.0;
-    private int milisegundosDefault = 2000;
+    private int milisegundosDefault = 1000;
     private boolean moveRight = false;
     private boolean moveLeft = false;
 
@@ -36,7 +36,7 @@ public class ThreadFigura extends Thread {
         while (isRunning()) {
             int pick = new Random().nextInt(Shapes.values().length);
             Shapes shape = Shapes.values()[pick];
-            //Shapes shape = Shapes.SQUARE;
+            //Shapes shape = Shapes.MIRROR_Z;
             tablero.setShapes(shape);
             // iteración de figura
             for (int index = -3; index < Tablero.FILAS_Y; index++) {
@@ -44,12 +44,17 @@ public class ThreadFigura extends Thread {
 
                 if (index >= 0) {
 
+
                     if(moveLeft){
-                        decrementIndex_x(columnaActual, shape);
+
+                        decrementIndex_x(columnaActual, shape, index);
+
                         moveLeft = false;
+
                     } else if (moveRight){
                         incrementIndex_x(columnaActual, shape, Tablero.COLUMNAS_X, index);
                         moveRight = false;
+
                     }
 
                     try {
@@ -119,8 +124,8 @@ public class ThreadFigura extends Thread {
             this.factorVelocidad -= 0.10;
     }
 
-    private void decrementIndex_x(int currentColumn, Shapes shapes){
-        if (currentColumn-shapes.getxLeft() > 0)
+    private void decrementIndex_x(int currentColumn, Shapes shapes, int index){
+        if (currentColumn-shapes.getxLeft() > 0 && !(shapes.leftContact(currentColumn, index, tablero)))
             tablero.setIndex_x(tablero.getIndex_x()-1);
 
     }

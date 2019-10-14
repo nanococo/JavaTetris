@@ -21,6 +21,16 @@ public enum Shapes {
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
             return tablero.tableroLabels[columnaActual-1][i+3].isFilled() || tablero.tableroLabels[columnaActual][i+3].isFilled();
         }
+        @Override  public boolean rightContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column+1][index].isFilled()
+                    || tablero.tableroLabels[column+1][index+1].isFilled()
+                    || tablero.tableroLabels[column+1][index+2].isFilled();
+        }
+        @Override public boolean leftContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column-2][index+2].isFilled()
+                    || tablero.tableroLabels[column-1][index+1].isFilled()
+                    || tablero.tableroLabels[column-1][index].isFilled();
+        }
     },
     MIRROR_Z(Color.CYAN, 2, 1, 1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
@@ -36,7 +46,19 @@ public enum Shapes {
             tablero.tableroLabels[columnaActual-1][i+1].setFilled(false).label.setBackground(Color.DARK_GRAY);
         }
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
-            return tablero.tableroLabels[columnaActual-1][i+2].isFilled() || tablero.tableroLabels[columnaActual][i+2].isFilled();
+            return tablero.tableroLabels[columnaActual-1][i+2].isFilled() || tablero.tableroLabels[columnaActual][i+2].isFilled()
+                    || tablero.tableroLabels[columnaActual+1][i+1].isFilled();
+        }
+
+        //PENDIENTE DE ARREGLAR
+        @Override  public boolean rightContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column+2][index].isFilled()
+                    || tablero.tableroLabels[column+1][index+1].isFilled();
+        }
+        @Override public boolean leftContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column-1][index].isFilled()
+                    || tablero.tableroLabels[column-2][index+1].isFilled();
+
         }
     },
     SQUARE(Color.MAGENTA,2, 0, 1){
@@ -55,6 +77,17 @@ public enum Shapes {
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
             return tablero.tableroLabels[columnaActual+1][i+2].isFilled() || tablero.tableroLabels[columnaActual][i+2].isFilled();
         }
+
+        @Override  public boolean rightContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column+2][index].isFilled()
+                    || tablero.tableroLabels[column+2][index+1].isFilled();
+        }
+        @Override public boolean leftContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column-1][index].isFilled()
+                    || tablero.tableroLabels[column-1][index+1].isFilled();
+
+        }
+
     },
     LINE(Color.BLUE,4,0,0){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
@@ -70,7 +103,20 @@ public enum Shapes {
             tablero.tableroLabels[columnaActual][i+3].setFilled(false).label.setBackground(Color.DARK_GRAY);
         }
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
-            return tablero.tableroLabels[columnaActual-1][i+4].isFilled();
+            return tablero.tableroLabels[columnaActual][i+4].isFilled();
+        }
+        @Override  public boolean rightContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column+1][index].isFilled()
+                    || tablero.tableroLabels[column+1][index+1].isFilled()
+                    || tablero.tableroLabels[column+1][index+2].isFilled()
+                    || tablero.tableroLabels[column+1][index+3].isFilled();
+        }
+        @Override public boolean leftContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column-1][index].isFilled()
+                    || tablero.tableroLabels[column-1][index+1].isFilled()
+                    || tablero.tableroLabels[column-1][index+2].isFilled()
+                    || tablero.tableroLabels[column-1][index+3].isFilled();
+
         }
     },
     T(Color.RED,2,1,1){
@@ -87,7 +133,18 @@ public enum Shapes {
             tablero.tableroLabels[columnaActual][i+1].setFilled(false).label.setBackground(Color.DARK_GRAY);
         }
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
-            return tablero.tableroLabels[columnaActual][i+2].isFilled();
+            return tablero.tableroLabels[columnaActual][i+2].isFilled()
+                    || tablero.tableroLabels[columnaActual-1][i+1].isFilled()
+                    || tablero.tableroLabels[columnaActual+1][i+1].isFilled();
+        }
+        @Override  public boolean rightContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column+2][index].isFilled()
+                    || tablero.tableroLabels[column+1][index+1].isFilled();
+
+        }
+        @Override public boolean leftContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column-2][index].isFilled()
+                    || tablero.tableroLabels[column-1][index+1].isFilled();
         }
     },
     L(Color.YELLOW,3,0,1){
@@ -106,6 +163,17 @@ public enum Shapes {
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
             return tablero.tableroLabels[columnaActual+1][i+3].isFilled() || tablero.tableroLabels[columnaActual][i+3].isFilled();
         }
+        @Override  public boolean leftContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column-1][index].isFilled()
+                    || tablero.tableroLabels[column-1][index+1].isFilled()
+                    || tablero.tableroLabels[column-1][index+2].isFilled();
+        }
+        @Override public boolean rightContact(int column, int index, Tablero tablero){
+            return tablero.tableroLabels[column+1][index].isFilled()
+                    || tablero.tableroLabels[column+1][index+1].isFilled()
+                    || tablero.tableroLabels[column+2][index+2].isFilled();
+        }
+
     },
     Z(Color.WHITE,2,1,1){
         @Override public void fall(Tablero tablero, int columnaActual, int i){
@@ -122,6 +190,16 @@ public enum Shapes {
         }
         @Override public boolean contact(Tablero tablero, int columnaActual, int i){
             return tablero.tableroLabels[columnaActual+1][i+2].isFilled() || tablero.tableroLabels[columnaActual][i+2].isFilled();
+        }
+
+        @Override public boolean rightContact(int column, int index, Tablero tablero) {
+            return tablero.tableroLabels[column + 1][index].isFilled()
+                    || tablero.tableroLabels[column + 2][index + 1].isFilled();
+        }
+
+        @Override public boolean leftContact(int column, int index, Tablero tablero) {
+            return tablero.tableroLabels[column - 2][index].isFilled()
+                    || tablero.tableroLabels[column - 1][index + 1].isFilled();
         }
     };
 
@@ -153,7 +231,10 @@ public enum Shapes {
     }
 
     public boolean rightContact(int column, int index, Tablero tablero){
-        return tablero.tableroLabels[column + 1][index].isFilled();
+        return false;
+    }
+    public boolean leftContact(int column, int index, Tablero tablero){
+        return false;
     }
 
 
